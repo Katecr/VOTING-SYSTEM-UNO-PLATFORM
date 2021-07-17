@@ -1,30 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿
+using PUNTO_VOTACION.Helpers;
+using PUNTO_VOTACION.Models;
+using System;
+using Windows.System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
 
 namespace PUNTO_VOTACION.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class LoginPage : Page
     {
         public LoginPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            
+
+        }
+
+        
+        private async void RestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Response response = await ApiService.RestoreAsync(new LoginRequest
+            {
+                Email = EmailTextBox.Text,
+            });
+            MessageDialog messageDialog;
+            if (!response.IsSuccess)
+            {
+                messageDialog = new MessageDialog(response.Message, "Error");
+                await messageDialog.ShowAsync();
+                return;
+            }
+            User user = (User)response.Result;
+            if (user == null)
+            {
+                messageDialog = new MessageDialog("Usuario o contraseña incorrectos", "Error");
+                await messageDialog.ShowAsync();
+                return;
+            }
         }
     }
 }
