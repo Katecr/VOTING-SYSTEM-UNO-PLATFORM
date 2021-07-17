@@ -21,7 +21,7 @@ namespace PUNTO_VOTACION.Helpers
                 HttpClientHandler handler = new HttpClientHandler()
                 {
                     ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                };                
+                };             
 
                 HttpClient client = new HttpClient(handler)
                 {
@@ -51,6 +51,53 @@ namespace PUNTO_VOTACION.Helpers
                     Message = ex.Message
                 };
             }
-        }        
+        }
+
+        public static async Task<Response> LoginAsync(LoginRequest model)
+        {
+            try
+            {
+                string request = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(request, Encoding.UTF8, "application/json");
+
+                //Manages the communications
+                HttpClientHandler handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+                
+                HttpClient client = new HttpClient(handler)
+                {
+                    BaseAddress = new Uri("https://fpd2021uno.azurewebsites.net/")
+                };
+
+                HttpResponseMessage response = await client.PostAsync("api/Account/CreateToken", content);
+                string result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                TokesResponse user = JsonConvert.DeserializeObject<TokesResponse>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = user,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
     }
 }
