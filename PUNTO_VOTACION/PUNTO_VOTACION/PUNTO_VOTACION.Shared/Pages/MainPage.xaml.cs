@@ -30,8 +30,7 @@ namespace PUNTO_VOTACION.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            TokenResponse = (TokenResponse)e.Parameter;
-            WelcomeTextBlock.Text = $"Bienvenid@: {TokenResponse.User.Name}";
+            TokenResponse = (TokenResponse)e.Parameter;            
             LoadPageQuestionAsync(TokenResponse.Token);
             
         }
@@ -51,7 +50,8 @@ namespace PUNTO_VOTACION.Pages
                 MessageDialog messageDialog;
                 messageDialog = new MessageDialog(response.Message, "Error");
                 await messageDialog.ShowAsync();
-                MyFrame.Navigate(typeof(CancelVotePage));
+                MyFrame.Navigate(typeof(CancelVotePage));               
+
 
             }
 

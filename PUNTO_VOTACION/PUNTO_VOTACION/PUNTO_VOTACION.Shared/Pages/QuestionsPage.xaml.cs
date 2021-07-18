@@ -20,6 +20,8 @@ namespace PUNTO_VOTACION.Pages
         }
 
         public Question Question { get; set; }
+        public TokenResponse TokenResponse { get; set; }
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -33,7 +35,8 @@ namespace PUNTO_VOTACION.Pages
             option2.Text = $"{Question.Options.ElementAt(1).Description}";
             option3.Text = $"{Question.Options.ElementAt(2).Description}";
             option4.Text = $"{Question.Options.ElementAt(3).Description}";
-            
+            WelcomeTextBlock.Text = $"Bienvenid@: {MainPage.GetInstance().TokenResponse.User.Name}";
+
         }
 
         private async void VoteOptionA_Click(object sender, RoutedEventArgs e)

@@ -15,12 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="Sistema de votación" HorizontalAlignment="Center" Foreground="Black" FontSize="30" Padding="10" />
-        </StackPanel>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <TextBlock x:Name="WelcomeTextBlock" Text="Welcome" FontSize="60" Foreground="red" Padding="10" FontWeight="Bold"/>
-        </StackPanel>
-        <Frame x:Name="MyFrame" Grid.Row="2"/>
+
+        <Frame x:Name="MyFrame" Grid.Row="1"/>
     </Grid>    
 </Page>
