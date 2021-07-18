@@ -153,5 +153,46 @@ namespace PUNTO_VOTACION.Helpers
             }
 
         }
+
+        public static async Task<Response> SendVoteAsync(string token, Vote model)
+        {
+            string request = JsonConvert.SerializeObject(model);
+            StringContent content = new StringContent(request, Encoding.UTF8, "application/json");
+
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
+
+
+            HttpClient client = new HttpClient()
+            {
+                BaseAddress = new Uri("https://fpd2021uno.azurewebsites.net")
+            };
+
+
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
+            HttpResponseMessage response = await client.PostAsync("api/Questions", content);
+            string result = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = result,
+                };
+
+            }
+
+
+            return new Response
+            {
+                IsSuccess = true,
+            };
+        }
+
+        
+
     }
 }

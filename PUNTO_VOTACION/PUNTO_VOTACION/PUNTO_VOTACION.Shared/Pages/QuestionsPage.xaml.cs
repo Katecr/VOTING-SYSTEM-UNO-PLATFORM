@@ -1,19 +1,10 @@
 ﻿using PUNTO_VOTACION.Models;
 using PUNTO_VOTACION.Helpers;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -43,7 +34,73 @@ namespace PUNTO_VOTACION.Pages
             option3.Text = $"{Question.Options.ElementAt(2).Description}";
             option4.Text = $"{Question.Options.ElementAt(3).Description}";
             
+        }
 
+        private async void VoteOptionA_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            Response response = await ApiService.SendVoteAsync(MainPage.GetInstance().TokenResponse.Token,
+                 new Vote
+                 {
+                     QuestionId = Question.Id,
+                     OptionId = "1",
+                 });
+
+            validateVote(response);
+
+        }
+
+
+        private async void VoteOptionB_Click(object sender, RoutedEventArgs e)
+        {
+            Response response = await ApiService.SendVoteAsync(MainPage.GetInstance().TokenResponse.Token,
+                new Vote
+                {
+                    QuestionId = Question.Id,
+                    OptionId = "2",
+                });
+            validateVote(response);
+        }
+
+
+        private async void VoteOptionC_Click(object sender, RoutedEventArgs e)
+        {
+            Response response = await ApiService.SendVoteAsync(MainPage.GetInstance().TokenResponse.Token,
+                new Vote
+                {
+                    QuestionId = Question.Id,
+                    OptionId = "3",
+                });
+
+            validateVote(response);
+        }
+
+
+        private async void VoteOptionD_Click(object sender, RoutedEventArgs e)
+        {
+            Response response = await ApiService.SendVoteAsync(MainPage.GetInstance().TokenResponse.Token,
+                new Vote
+                {
+                    QuestionId = Question.Id,
+                    OptionId = "4",
+                });
+
+            validateVote(response);
+
+
+        }
+
+        private async void validateVote(Response response)
+        {
+            if (response.IsSuccess)
+            {
+                MessageDialog messageDialog;
+                messageDialog = new MessageDialog("Su voto ha sido registrado con exito", "OK");
+                await messageDialog.ShowAsync();
+                Frame.Navigate(typeof(LoginPage));
+
+            }
         }
     }
 }
