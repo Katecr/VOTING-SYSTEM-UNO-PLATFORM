@@ -51,6 +51,7 @@ namespace PUNTO_VOTACION.Pages
                 MessageDialog messageDialog;
                 messageDialog = new MessageDialog(response.Message, "Error");
                 await messageDialog.ShowAsync();
+                MyFrame.Navigate(typeof(CancelVotePage));
 
             }
 
