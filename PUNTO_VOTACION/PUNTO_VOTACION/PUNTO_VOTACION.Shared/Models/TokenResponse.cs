@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 
 namespace PUNTO_VOTACION.Models
 {
-    class TokesResponse
+    public class TokenResponse
     {
         [JsonProperty("token")]
         public string Token { get; set; }

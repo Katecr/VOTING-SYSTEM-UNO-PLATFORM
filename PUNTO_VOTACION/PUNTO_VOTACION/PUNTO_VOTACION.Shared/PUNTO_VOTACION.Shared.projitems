@@ -24,14 +24,19 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\LoginRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Option.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Question.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Response.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\TokesResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TokenResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\QuestionsPage.xaml.cs">
+      <DependentUpon>QuestionsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -47,14 +52,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Pages\QuestionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Assets\SharedAssets.md" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Components\" />
   </ItemGroup>
 </Project>

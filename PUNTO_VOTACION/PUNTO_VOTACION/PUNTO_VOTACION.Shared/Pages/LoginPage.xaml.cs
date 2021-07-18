@@ -55,18 +55,16 @@ namespace PUNTO_VOTACION.Pages
                 Password = PasswordPasswordBox.Password
             });
 
-            TokesResponse responseLogin = (TokesResponse)response.Result;
-
             MessageDialog messageDialog;
             if (!response.IsSuccess)
             {
-                messageDialog = new MessageDialog(response.Message, "Error");
+                messageDialog = new MessageDialog("Usuario o contraseña incorrectos", "Error");
                 await messageDialog.ShowAsync();
                 return;
             }
-            
 
-            Frame.Navigate(typeof(MainPage), responseLogin);
+            TokenResponse tokenResponse = (TokenResponse)response.Result;
+            Frame.Navigate(typeof(MainPage), tokenResponse);
         }
 
         private async Task<bool> ValidForm()

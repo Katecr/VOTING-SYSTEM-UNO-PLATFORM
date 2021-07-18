@@ -1,17 +1,16 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace PUNTO_VOTACION.Models
 {
-    class User
+    public class User
     {
-        [JsonProperty("firstName")]
-        public string FirstName { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
-        [JsonProperty("lastName")]
-        public string LastName { get; set; }
+        [JsonProperty("group")]
+        public long Group { get; set; }
 
         [JsonProperty("id")]
         public Guid Id { get; set; }
@@ -41,7 +40,7 @@ namespace PUNTO_VOTACION.Models
         public Guid ConcurrencyStamp { get; set; }
 
         [JsonProperty("phoneNumber")]
-        public string PhoneNumber { get; set; }
+        public object PhoneNumber { get; set; }
 
         [JsonProperty("phoneNumberConfirmed")]
         public bool PhoneNumberConfirmed { get; set; }
@@ -57,7 +56,5 @@ namespace PUNTO_VOTACION.Models
 
         [JsonProperty("accessFailedCount")]
         public long AccessFailedCount { get; set; }
-
-        public string FullName => $"{FirstName} {LastName}";
     }
 }

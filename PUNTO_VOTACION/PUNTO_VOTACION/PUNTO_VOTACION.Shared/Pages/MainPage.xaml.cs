@@ -1,30 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using PUNTO_VOTACION.Helpers;
+using PUNTO_VOTACION.Models;
+using System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
 
 namespace PUNTO_VOTACION.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class MainPage : Page
     {
+        private static MainPage _instance;
+
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            _instance = this;
+        }
+
+        public TokenResponse TokenResponse { get; set; }
+
+        public static MainPage GetInstance()
+        {
+            return _instance;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            TokenResponse = (TokenResponse)e.Parameter;
+            WelcomeTextBlock.Text = $"Bienvenid@: {TokenResponse.User.Name}";
+            LoadPageQuestionAsync(TokenResponse.Token);
+            
+        }
+
+        private async void LoadPageQuestionAsync(string token)
+        {
+            Response response = await ApiService.QuestionAsync(token);
+
+            if (response.IsSuccess)
+            {
+                Question responseQuestion = (Question)response.Result;
+                MyFrame.Navigate(typeof(QuestionsPage), responseQuestion);
+            }
+            else
+            {
+
+                MessageDialog messageDialog;
+                messageDialog = new MessageDialog(response.Message, "Error");
+                await messageDialog.ShowAsync();
+
+            }
+
         }
     }
 }
