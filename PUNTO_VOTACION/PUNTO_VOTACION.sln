@@ -25,6 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PUNTO_VOTACION.Skia.Gtk", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PUNTO_VOTACION.Skia.Tizen", "PUNTO_VOTACION\PUNTO_VOTACION.Skia.Tizen\PUNTO_VOTACION.Skia.Tizen.csproj", "{E7045754-E833-40D3-A7FF-FA4BF88FF1C8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "previews", "previews", "{ABB75A81-B0B6-4C71-8407-1B3C172B60F1}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\diseno1\Downloads\SystemVotacion.gif = C:\Users\diseno1\Downloads\SystemVotacion.gif
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		PUNTO_VOTACION\PUNTO_VOTACION.Shared\PUNTO_VOTACION.Shared.projitems*{005be5fc-78a7-4516-bf16-0b636bc6d54b}*SharedItemsImports = 5
